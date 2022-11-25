@@ -1,4 +1,5 @@
 const profileModel = require('../models/profileModel');
+const jwt = require('jsonwebtoken');
 
 exports.createProfile = (req, res)=>{
     let reqBody = req.body;
