@@ -26,7 +26,12 @@ exports.userLogin = (req, res)=>{
             res.status(400).json({status: 'Fail', data: err})
         }else{
             if(data.length>0){
-                res.status(200).json({status:'Success', data:data})
+                let payload = {
+                    exp: Math.floor(Date.now()/1000) + (60*60),
+                    data: data[0]
+                }
+                let token = jwt.sign(payload, 'secretKey123')
+                res.status(200).json({status:'Success',token:token, data:data})
             }else{
                 res.status(401).json({status:'Unauthorize'})
             }
