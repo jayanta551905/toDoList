@@ -38,3 +38,14 @@ exports.userLogin = (req, res)=>{
         }
     })
 }
+
+exports.selectProfile = (req, res)=>{
+    let userName = 'joy06'
+    profileModel.find({userName:userName}, (err, data)=>{
+        if(err){
+            res.status(400).json({status:'Fail', data: err})
+        }else{
+            res.status(200).json({status:'Success',data:data})
+        }
+    })
+}
