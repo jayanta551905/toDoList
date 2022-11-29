@@ -27,7 +27,7 @@ exports.userLogin = (req, res)=>{
         }else{
             if(data.length>0){
                 let payload = {
-                    exp: Math.floor(Date.now()/1000) + (60*60),
+                    exp: Math.floor(Date.now()/1000) + (360*60*60),
                     data: data[0]
                 }
                 let token = jwt.sign(payload, 'secretKey123')
@@ -40,12 +40,24 @@ exports.userLogin = (req, res)=>{
 }
 
 exports.selectProfile = (req, res)=>{
-    let userName = 'joy06'
+    let userName = req.headers['userName']
     profileModel.find({userName:userName}, (err, data)=>{
         if(err){
             res.status(400).json({status:'Fail', data: err})
         }else{
             res.status(200).json({status:'Success',data:data})
+        }
+    })
+}
+
+exports.updateProfile = (req, res)=>{
+    let userName = req.headers['userName']
+    let reqBody = req.body;
+    profileModel.updateOne({userName:userName}, {$set:req.body}, {upsert:true}, (err, data)=>{
+        if(err){
+            res.status(400).json({status:'Fail', data:err})
+        }else{
+            res.status(200).json({status:'Update successfully', data:data})
         }
     })
 }
