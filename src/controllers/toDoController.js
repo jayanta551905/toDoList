@@ -1,3 +1,4 @@
+const todoListModel = require('../models/todoListModel');
 const todoModel = require('../models/todoListModel');
 
 exports.createTodo = (req, res)=>{
@@ -42,4 +43,26 @@ exports.selectTodo = (req, res)=>{
             res.status(200).json({status:'Success',data:data})
         }
     })
+}
+
+
+exports.updateTodo = (req, res)=>{
+  let todoSubject = req.body['todoSubject']
+  let todoDescription = req.body['todoDescription']
+  let _id = req.body['_id']
+  let todoUpdateDate = Date.now()
+
+  let postBody = {
+    todoSubject:todoSubject,
+    todoDescription:todoDescription,
+    todoUpdateDate:todoUpdateDate
+  }
+
+  todoListModel.updateOne({_id:_id}, {$set:postBody}, {upsert:true}, (err, data)=>{
+    if(err){
+        res.status(400).json({status:'Fail', data: err})
+    }else{
+        res.status(200).json({status:'Success',data:data})
+    }
+  })
 }

@@ -14,6 +14,6 @@ router.post("/updateProfile", authVerifyMiddleware, profileController.updateProf
 // to do list api
 router.post("/createTodo", authVerifyMiddleware, todoController.createTodo);
 router.get("/selectTodo", authVerifyMiddleware, todoController.selectTodo);
-
+router.post("/updateTodo", authVerifyMiddleware, todoController.updateTodo);
 
 module.exports = router;
