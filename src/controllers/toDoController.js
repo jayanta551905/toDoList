@@ -79,10 +79,23 @@ exports.removeTodo = (req, res)=>{
     })
   }
 
-  exports.selectTodoByStatus = (req, res)=>{
+exports.selectTodoByStatus = (req, res)=>{
     let userName = req.headers['userName']
     let todoStatus = req.body['todoStatus']
     todoModel.find({userName:userName, todoStatus:todoStatus}, (err, data)=>{
+        if(err){
+            res.status(400).json({status:'Fail', data: err})
+        }else{
+            res.status(200).json({status:'Success',data:data})
+        }
+    })
+}
+
+exports.selectTodoByDate = (req, res)=>{
+    let userName = req.headers['userName']
+    let formDate = req.body['formDate']
+    let toDate = req.body['toDate']
+    todoModel.find({userName:userName, todoCreateDate:{$gte: new Date(formDate), $lte: new Date(toDate)}}, (err, data)=>{
         if(err){
             res.status(400).json({status:'Fail', data: err})
         }else{

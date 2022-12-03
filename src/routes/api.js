@@ -17,4 +17,5 @@ router.get("/selectTodo", authVerifyMiddleware, todoController.selectTodo);
 router.post("/updateTodo", authVerifyMiddleware, todoController.updateTodo);
 router.post("/removeTodo",authVerifyMiddleware, todoController.removeTodo);
 router.get("/selectTodoByStatus", authVerifyMiddleware, todoController.selectTodoByStatus);
+router.get("/selectTodoByDate", authVerifyMiddleware, todoController.selectTodoByDate);
 module.exports = router;
