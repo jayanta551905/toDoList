@@ -15,5 +15,6 @@ router.post("/updateProfile", authVerifyMiddleware, profileController.updateProf
 router.post("/createTodo", authVerifyMiddleware, todoController.createTodo);
 router.get("/selectTodo", authVerifyMiddleware, todoController.selectTodo);
 router.post("/updateTodo", authVerifyMiddleware, todoController.updateTodo);
-
+router.post("/removeTodo",authVerifyMiddleware, todoController.removeTodo);
+router.get("/selectTodoByStatus", authVerifyMiddleware, todoController.selectTodoByStatus);
 module.exports = router;

@@ -66,3 +66,27 @@ exports.updateTodo = (req, res)=>{
     }
   })
 }
+
+exports.removeTodo = (req, res)=>{
+    let _id = req.body['_id']
+  
+    todoListModel.remove({_id:_id}, (err, data)=>{
+      if(err){
+          res.status(400).json({status:'Fail', data: err})
+      }else{
+          res.status(200).json({status:'Success',data:data})
+      }
+    })
+  }
+
+  exports.selectTodoByStatus = (req, res)=>{
+    let userName = req.headers['userName']
+    let todoStatus = req.body['todoStatus']
+    todoModel.find({userName:userName, todoStatus:todoStatus}, (err, data)=>{
+        if(err){
+            res.status(400).json({status:'Fail', data: err})
+        }else{
+            res.status(200).json({status:'Success',data:data})
+        }
+    })
+}
